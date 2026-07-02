@@ -43,8 +43,10 @@ class _TypingIndicatorState extends State<TypingIndicator>
                 child: Container(
                   width: widget.dotSize,
                   height: widget.dotSize,
-                  decoration:
-                      BoxDecoration(color: color, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                  ),
                 ),
               ),
             );

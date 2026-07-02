@@ -85,37 +85,40 @@ class _AgenticChatViewState extends State<AgenticChatView> {
     return Column(
       children: [
         Expanded(
-          child: messages.isEmpty
-              ? Center(
-                  child: widget.emptyState ??
-                      Text(
-                        'Send a message to start',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant),
-                      ),
-                )
-              : ListView.builder(
-                  key: const Key('agentic_chat_list'),
-                  controller: _scrollController,
-                  padding: const EdgeInsets.all(12),
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) => ChatBubble(
-                    message: messages[index],
-                    theme: widget.theme,
-                    showSteps: widget.showSteps,
+          child:
+              messages.isEmpty
+                  ? Center(
+                    child:
+                        widget.emptyState ??
+                        Text(
+                          'Send a message to start',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                  )
+                  : ListView.builder(
+                    key: const Key('agentic_chat_list'),
+                    controller: _scrollController,
+                    padding: const EdgeInsets.all(12),
+                    itemCount: messages.length,
+                    itemBuilder:
+                        (context, index) => ChatBubble(
+                          message: messages[index],
+                          theme: widget.theme,
+                          showSteps: widget.showSteps,
+                        ),
                   ),
-                ),
         ),
         ChatInputBar(
           enabled: !widget.controller.isBusy,
           hintText: widget.inputHint,
-          onSend: (text) =>
-              widget.controller.send(text, stream: widget.streamResponses),
+          onSend:
+              (text) =>
+                  widget.controller.send(text, stream: widget.streamResponses),
         ),
       ],
     );

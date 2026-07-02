@@ -47,11 +47,23 @@ class _StepRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final (icon, text, color) = switch (step) {
-      ThinkingStep(:final thought) => (Icons.psychology_alt_outlined, thought, scheme.onSurfaceVariant),
+      ThinkingStep(:final thought) => (
+        Icons.psychology_alt_outlined,
+        thought,
+        scheme.onSurfaceVariant,
+      ),
       ToolCallStep s => (Icons.build_outlined, s.displayText, scheme.primary),
-      ToolResultStep s => (Icons.check_circle_outline, '${s.toolName} → ${s.displayText}', scheme.tertiary),
+      ToolResultStep s => (
+        Icons.check_circle_outline,
+        '${s.toolName} → ${s.displayText}',
+        scheme.tertiary,
+      ),
       ErrorStep(:final message) => (Icons.error_outline, message, scheme.error),
-      FinalResponseStep(:final text) => (Icons.chat_bubble_outline, text, scheme.onSurface),
+      FinalResponseStep(:final text) => (
+        Icons.chat_bubble_outline,
+        text,
+        scheme.onSurface,
+      ),
     };
     return Padding(
       padding: const EdgeInsets.only(left: 4, bottom: 6),
@@ -63,10 +75,9 @@ class _StepRow extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(color: color),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: color),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),

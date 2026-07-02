@@ -26,19 +26,22 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final isUser = message.isUser;
     final isError = message.status == ChatMessageStatus.error;
-    final waiting = !isUser &&
+    final waiting =
+        !isUser &&
         message.text.isEmpty &&
         (message.status == ChatMessageStatus.sending ||
             message.status == ChatMessageStatus.streaming);
 
-    final background = isError
-        ? theme.resolvedError(context).withValues(alpha: 0.12)
-        : isUser
+    final background =
+        isError
+            ? theme.resolvedError(context).withValues(alpha: 0.12)
+            : isUser
             ? theme.resolvedUserBubble(context)
             : theme.resolvedAgentBubble(context);
-    final foreground = isError
-        ? theme.resolvedError(context)
-        : isUser
+    final foreground =
+        isError
+            ? theme.resolvedError(context)
+            : isUser
             ? theme.resolvedUserText(context)
             : theme.resolvedAgentText(context);
 
@@ -46,7 +49,8 @@ class ChatBubble extends StatelessWidget {
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
         constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.82),
+          maxWidth: MediaQuery.of(context).size.width * 0.82,
+        ),
         child: Column(
           crossAxisAlignment:
               isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -65,15 +69,16 @@ class ChatBubble extends StatelessWidget {
                   bottomRight: Radius.circular(isUser ? 4 : theme.bubbleRadius),
                 ),
               ),
-              child: waiting
-                  ? const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                      child: TypingIndicator(),
-                    )
-                  : SelectableText(
-                      message.text,
-                      style: TextStyle(color: foreground),
-                    ),
+              child:
+                  waiting
+                      ? const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 4),
+                        child: TypingIndicator(),
+                      )
+                      : SelectableText(
+                        message.text,
+                        style: TextStyle(color: foreground),
+                      ),
             ),
           ],
         ),

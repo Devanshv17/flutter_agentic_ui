@@ -10,9 +10,9 @@ class DemoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
-        home: const ChatScreen(),
-      );
+    theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
+    home: const ChatScreen(),
+  );
 }
 
 class ChatScreen extends StatefulWidget {

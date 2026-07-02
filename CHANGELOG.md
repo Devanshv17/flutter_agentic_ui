@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.1] — 2026-07-02
+
+- Formatted with `dart format` for full pub.dev static-analysis score. No functional changes.
+
 ## [0.1.0] — 2026-07-02
 
 Initial release.

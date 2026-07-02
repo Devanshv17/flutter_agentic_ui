@@ -60,13 +60,11 @@ class BrokenProvider implements LlmProvider {
     required List<Message> messages,
     List<GenesisTool> tools = const [],
     double temperature = 0.7,
-  }) async =>
-      throw Exception('network down');
+  }) async => throw Exception('network down');
 
   @override
   Stream<String> stream({
     required List<Message> messages,
     double temperature = 0.7,
-  }) =>
-      throw Exception('network down');
+  }) => throw Exception('network down');
 }

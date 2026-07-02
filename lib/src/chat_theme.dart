@@ -18,8 +18,10 @@ class AgenticChatTheme {
     this.agentTextColor,
     this.errorColor,
     this.bubbleRadius = 16,
-    this.bubblePadding =
-        const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+    this.bubblePadding = const EdgeInsets.symmetric(
+      horizontal: 14,
+      vertical: 10,
+    ),
   });
 
   Color resolvedUserBubble(BuildContext context) =>

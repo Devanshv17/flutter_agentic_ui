@@ -7,7 +7,8 @@ import 'fakes.dart';
 void main() {
   test('send adds a user message and a completed agent reply', () async {
     final controller = AgenticChatController(
-        agent: GenesisAgent(provider: FakeProvider(reply: 'Hi there')));
+      agent: GenesisAgent(provider: FakeProvider(reply: 'Hi there')),
+    );
 
     await controller.send('Hello');
 
@@ -21,33 +22,41 @@ void main() {
   });
 
   test('empty or whitespace input is ignored', () async {
-    final controller =
-        AgenticChatController(agent: GenesisAgent(provider: FakeProvider()));
+    final controller = AgenticChatController(
+      agent: GenesisAgent(provider: FakeProvider()),
+    );
     await controller.send('   ');
     expect(controller.messages, isEmpty);
   });
 
-  test('isBusy is true while the agent works and blocks concurrent sends',
-      () async {
-    final controller = AgenticChatController(
+  test(
+    'isBusy is true while the agent works and blocks concurrent sends',
+    () async {
+      final controller = AgenticChatController(
         agent: GenesisAgent(
-            provider: FakeProvider(delay: const Duration(milliseconds: 50))));
+          provider: FakeProvider(delay: const Duration(milliseconds: 50)),
+        ),
+      );
 
-    final first = controller.send('one');
-    expect(controller.isBusy, isTrue);
-    await controller.send('two'); // ignored while busy
-    await first;
+      final first = controller.send('one');
+      expect(controller.isBusy, isTrue);
+      await controller.send('two'); // ignored while busy
+      await first;
 
-    expect(controller.messages.length, 2);
-    expect(controller.messages[0].text, 'one');
-  });
+      expect(controller.messages.length, 2);
+      expect(controller.messages[0].text, 'one');
+    },
+  );
 
   test('streaming send grows the reply text token by token', () async {
     final controller = AgenticChatController(
-        agent: GenesisAgent(
-            provider: FakeProvider(
-                streamTokens: ['A', 'B', 'C'],
-                delay: const Duration(milliseconds: 5))));
+      agent: GenesisAgent(
+        provider: FakeProvider(
+          streamTokens: ['A', 'B', 'C'],
+          delay: const Duration(milliseconds: 5),
+        ),
+      ),
+    );
 
     final snapshots = <String>[];
     controller.addListener(() {
@@ -75,7 +84,8 @@ void main() {
       toolCall: const ToolCall(toolName: 'get_time', arguments: {}),
     );
     final controller = AgenticChatController(
-        agent: GenesisAgent(provider: provider, tools: [tool]));
+      agent: GenesisAgent(provider: provider, tools: [tool]),
+    );
 
     await controller.send('what time is it?');
 
@@ -85,16 +95,19 @@ void main() {
     expect(reply.steps.whereType<ToolResultStep>().length, 1);
   });
 
-  test('provider failure marks the reply as error, controller stays usable',
-      () async {
-    final controller = AgenticChatController(
-        agent: GenesisAgent(provider: BrokenProvider()));
+  test(
+    'provider failure marks the reply as error, controller stays usable',
+    () async {
+      final controller = AgenticChatController(
+        agent: GenesisAgent(provider: BrokenProvider()),
+      );
 
-    await controller.send('hello');
+      await controller.send('hello');
 
-    expect(controller.messages[1].status, ChatMessageStatus.error);
-    expect(controller.isBusy, isFalse);
-  });
+      expect(controller.messages[1].status, ChatMessageStatus.error);
+      expect(controller.isBusy, isFalse);
+    },
+  );
 
   test('clear empties messages and agent history', () async {
     final agent = GenesisAgent(provider: FakeProvider());
@@ -107,8 +120,10 @@ void main() {
 
   test('loadHistory restores persisted user/assistant turns', () async {
     final memory = InMemoryStore();
-    final agent =
-        GenesisAgent(provider: FakeProvider(reply: 'pong'), memory: memory);
+    final agent = GenesisAgent(
+      provider: FakeProvider(reply: 'pong'),
+      memory: memory,
+    );
     await agent.chat('ping');
 
     final controller = AgenticChatController(agent: agent);

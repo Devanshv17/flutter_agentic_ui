@@ -27,14 +27,13 @@ class ChatMessage {
     String? text,
     ChatMessageStatus? status,
     List<AgentStep>? steps,
-  }) =>
-      ChatMessage(
-        id: id,
-        isUser: isUser,
-        text: text ?? this.text,
-        status: status ?? this.status,
-        steps: steps ?? this.steps,
-      );
+  }) => ChatMessage(
+    id: id,
+    isUser: isUser,
+    text: text ?? this.text,
+    status: status ?? this.status,
+    steps: steps ?? this.steps,
+  );
 }
 
 /// Drives a chat conversation with a [GenesisAgent] and exposes it as
@@ -72,8 +71,7 @@ class AgenticChatController extends ChangeNotifier {
     if (trimmed.isEmpty || _busy) return;
     _busy = true;
 
-    _messages.add(ChatMessage(
-        id: _id(), isUser: true, text: trimmed));
+    _messages.add(ChatMessage(id: _id(), isUser: true, text: trimmed));
     final reply = ChatMessage(
       id: _id(),
       isUser: false,
@@ -90,32 +88,37 @@ class AgenticChatController extends ChangeNotifier {
           acc += token;
           _update(reply.id, (m) => m.copyWith(text: acc));
         }
-        _update(reply.id,
-            (m) => m.copyWith(status: ChatMessageStatus.complete));
+        _update(
+          reply.id,
+          (m) => m.copyWith(status: ChatMessageStatus.complete),
+        );
       } else {
         final steps = <AgentStep>[];
-        final response = await agent.chat(trimmed, onStep: (step) {
-          steps.add(step);
-          _update(reply.id, (m) => m.copyWith(steps: List.of(steps)));
-        });
+        final response = await agent.chat(
+          trimmed,
+          onStep: (step) {
+            steps.add(step);
+            _update(reply.id, (m) => m.copyWith(steps: List.of(steps)));
+          },
+        );
         final (replyText, status) = switch (response) {
           TextAgentResponse(:final text) => (text, ChatMessageStatus.complete),
           MaxIterationsResponse() => (
-              'The agent could not finish within its step limit.',
-              ChatMessageStatus.error
-            ),
+            'The agent could not finish within its step limit.',
+            ChatMessageStatus.error,
+          ),
           ErrorAgentResponse(:final message) => (
-              message,
-              ChatMessageStatus.error
-            ),
+            message,
+            ChatMessageStatus.error,
+          ),
         };
         _update(reply.id, (m) => m.copyWith(text: replyText, status: status));
       }
     } catch (e) {
       _update(
-          reply.id,
-          (m) =>
-              m.copyWith(text: 'Error: $e', status: ChatMessageStatus.error));
+        reply.id,
+        (m) => m.copyWith(text: 'Error: $e', status: ChatMessageStatus.error),
+      );
     } finally {
       _busy = false;
       _notify();
@@ -134,14 +137,20 @@ class AgenticChatController extends ChangeNotifier {
     final history = await agent.getHistory();
     _messages
       ..clear()
-      ..addAll(history
-          .where((m) =>
-              m.role == MessageRole.user || m.role == MessageRole.assistant)
-          .map((m) => ChatMessage(
+      ..addAll(
+        history
+            .where(
+              (m) =>
+                  m.role == MessageRole.user || m.role == MessageRole.assistant,
+            )
+            .map(
+              (m) => ChatMessage(
                 id: _id(),
                 isUser: m.role == MessageRole.user,
                 text: m.content,
-              )));
+              ),
+            ),
+      );
     _notify();
   }
 
