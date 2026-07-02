@@ -1,6 +1,6 @@
 /// flutter_agentic_ui — drop-in chat UI for Flutter AI agents.
 ///
-/// An [AgenticChatController] that drives a `GenesisAgent`, plus ready-made
+/// An [AgenticChatController] that drives a `AgenticAgent`, plus ready-made
 /// widgets: full chat view, message bubbles with streaming, a ReAct step
 /// visualizer, typing indicator, and input bar.
 ///

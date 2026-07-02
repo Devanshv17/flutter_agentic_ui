@@ -27,7 +27,7 @@ class FakeProvider implements LlmProvider {
   @override
   Future<ProviderResult> complete({
     required List<Message> messages,
-    List<GenesisTool> tools = const [],
+    List<AgenticTool> tools = const [],
     double temperature = 0.7,
   }) async {
     completeCalls++;
@@ -58,7 +58,7 @@ class BrokenProvider implements LlmProvider {
   @override
   Future<ProviderResult> complete({
     required List<Message> messages,
-    List<GenesisTool> tools = const [],
+    List<AgenticTool> tools = const [],
     double temperature = 0.7,
   }) async => throw Exception('network down');
 

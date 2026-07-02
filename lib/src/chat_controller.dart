@@ -36,7 +36,7 @@ class ChatMessage {
   );
 }
 
-/// Drives a chat conversation with a [GenesisAgent] and exposes it as
+/// Drives a chat conversation with a [AgenticAgent] and exposes it as
 /// observable UI state. Attach it to an [AgenticChatView], or listen to it
 /// yourself and build any UI you like.
 ///
@@ -46,7 +46,7 @@ class ChatMessage {
 /// await controller.send('Hi', stream: true);  // token-by-token streaming
 /// ```
 class AgenticChatController extends ChangeNotifier {
-  final GenesisAgent agent;
+  final AgenticAgent agent;
 
   final List<ChatMessage> _messages = [];
   bool _busy = false;

@@ -3,7 +3,7 @@
 [![pub package](https://img.shields.io/pub/v/flutter_agentic_ui.svg)](https://pub.dev/packages/flutter_agentic_ui)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-**A drop-in chat screen for your AI agent.** Message list with streaming bubbles, a ReAct tool-call visualizer, typing indicator, and input bar — wired directly to a [flutter_agentic](https://pub.dev/packages/flutter_agentic) `GenesisAgent` through one observable controller.
+**A drop-in chat screen for your AI agent.** Message list with streaming bubbles, a ReAct tool-call visualizer, typing indicator, and input bar — wired directly to a [flutter_agentic](https://pub.dev/packages/flutter_agentic) `AgenticAgent` through one observable controller.
 
 👉 **[View on pub.dev](https://pub.dev/packages/flutter_agentic_ui)** · [API docs](https://pub.dev/documentation/flutter_agentic_ui/latest/) · [GitHub](https://github.com/Devanshv17/flutter_agentic_ui)
 
@@ -28,9 +28,9 @@ class ChatScreen extends StatefulWidget { /* ... */ }
 
 class _ChatScreenState extends State<ChatScreen> {
   late final controller = AgenticChatController(
-    agent: GenesisAgent(
+    agent: AgenticAgent(
       provider: GeminiProvider(apiKey: 'YOUR_KEY'),
-      tools: GenesisTools.all,
+      tools: AgenticTools.all,
     ),
   );
 

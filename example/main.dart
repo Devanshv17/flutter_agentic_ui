@@ -24,10 +24,10 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   late final AgenticChatController controller = AgenticChatController(
-    agent: GenesisAgent(
+    agent: AgenticAgent(
       provider: GeminiProvider(apiKey: 'YOUR_GEMINI_API_KEY'),
       systemPrompt: 'You are a friendly assistant.',
-      tools: GenesisTools.all, // calculator, date/time, http, weather
+      tools: AgenticTools.all, // calculator, date/time, http, weather
     ),
   );
 

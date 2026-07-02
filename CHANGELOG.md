@@ -8,7 +8,7 @@
 
 Initial release.
 
-- `AgenticChatController` — `ChangeNotifier` driving a `GenesisAgent`: `send()` (full ReAct turn with live step updates) and `send(stream: true)` (token streaming), `isBusy`, `clear()`, `loadHistory()`.
+- `AgenticChatController` — `ChangeNotifier` driving a `AgenticAgent`: `send()` (full ReAct turn with live step updates) and `send(stream: true)` (token streaming), `isBusy`, `clear()`, `loadHistory()`.
 - `AgenticChatView` — complete chat screen with auto-scroll, empty state, and input bar.
 - `ChatBubble` — user/agent bubbles, error styling, typing indicator while waiting.
 - `AgentStepsView` — expandable ReAct step trail (thinking / tool calls / results).

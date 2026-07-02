@@ -7,7 +7,7 @@ import 'fakes.dart';
 void main() {
   test('send adds a user message and a completed agent reply', () async {
     final controller = AgenticChatController(
-      agent: GenesisAgent(provider: FakeProvider(reply: 'Hi there')),
+      agent: AgenticAgent(provider: FakeProvider(reply: 'Hi there')),
     );
 
     await controller.send('Hello');
@@ -23,7 +23,7 @@ void main() {
 
   test('empty or whitespace input is ignored', () async {
     final controller = AgenticChatController(
-      agent: GenesisAgent(provider: FakeProvider()),
+      agent: AgenticAgent(provider: FakeProvider()),
     );
     await controller.send('   ');
     expect(controller.messages, isEmpty);
@@ -33,7 +33,7 @@ void main() {
     'isBusy is true while the agent works and blocks concurrent sends',
     () async {
       final controller = AgenticChatController(
-        agent: GenesisAgent(
+        agent: AgenticAgent(
           provider: FakeProvider(delay: const Duration(milliseconds: 50)),
         ),
       );
@@ -50,7 +50,7 @@ void main() {
 
   test('streaming send grows the reply text token by token', () async {
     final controller = AgenticChatController(
-      agent: GenesisAgent(
+      agent: AgenticAgent(
         provider: FakeProvider(
           streamTokens: ['A', 'B', 'C'],
           delay: const Duration(milliseconds: 5),
@@ -73,7 +73,7 @@ void main() {
   });
 
   test('tool-calling turn records steps on the reply message', () async {
-    final tool = GenesisTool.define(
+    final tool = AgenticTool.define(
       name: 'get_time',
       description: 'Returns the time',
       params: {},
@@ -84,7 +84,7 @@ void main() {
       toolCall: const ToolCall(toolName: 'get_time', arguments: {}),
     );
     final controller = AgenticChatController(
-      agent: GenesisAgent(provider: provider, tools: [tool]),
+      agent: AgenticAgent(provider: provider, tools: [tool]),
     );
 
     await controller.send('what time is it?');
@@ -99,7 +99,7 @@ void main() {
     'provider failure marks the reply as error, controller stays usable',
     () async {
       final controller = AgenticChatController(
-        agent: GenesisAgent(provider: BrokenProvider()),
+        agent: AgenticAgent(provider: BrokenProvider()),
       );
 
       await controller.send('hello');
@@ -110,7 +110,7 @@ void main() {
   );
 
   test('clear empties messages and agent history', () async {
-    final agent = GenesisAgent(provider: FakeProvider());
+    final agent = AgenticAgent(provider: FakeProvider());
     final controller = AgenticChatController(agent: agent);
     await controller.send('hello');
     await controller.clear();
@@ -120,7 +120,7 @@ void main() {
 
   test('loadHistory restores persisted user/assistant turns', () async {
     final memory = InMemoryStore();
-    final agent = GenesisAgent(
+    final agent = AgenticAgent(
       provider: FakeProvider(reply: 'pong'),
       memory: memory,
     );

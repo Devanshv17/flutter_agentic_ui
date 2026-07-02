@@ -13,7 +13,7 @@ void main() {
       tester,
     ) async {
       final controller = AgenticChatController(
-        agent: GenesisAgent(provider: FakeProvider(reply: 'Hi human')),
+        agent: AgenticAgent(provider: FakeProvider(reply: 'Hi human')),
       );
       await tester.pumpWidget(wrap(AgenticChatView(controller: controller)));
 
@@ -35,7 +35,7 @@ void main() {
       tester,
     ) async {
       final controller = AgenticChatController(
-        agent: GenesisAgent(
+        agent: AgenticAgent(
           provider: FakeProvider(delay: const Duration(milliseconds: 300)),
         ),
       );
@@ -66,7 +66,7 @@ void main() {
 
     testWidgets('streaming mode shows growing text', (tester) async {
       final controller = AgenticChatController(
-        agent: GenesisAgent(
+        agent: AgenticAgent(
           provider: FakeProvider(
             streamTokens: ['Once', ' upon', ' a time'],
             delay: const Duration(milliseconds: 20),
@@ -92,7 +92,7 @@ void main() {
 
     testWidgets('submitting via keyboard action also sends', (tester) async {
       final controller = AgenticChatController(
-        agent: GenesisAgent(provider: FakeProvider(reply: 'ok')),
+        agent: AgenticAgent(provider: FakeProvider(reply: 'ok')),
       );
       await tester.pumpWidget(wrap(AgenticChatView(controller: controller)));
 
