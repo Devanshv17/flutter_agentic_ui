@@ -1,3 +1,10 @@
+## [0.2.0] — 2026-07-02
+
+### Changed
+- Updated `flutter_agentic` dependency to `^2.0.0`; all `Genesis*` identifiers in the core are now `Agentic*` (e.g. `AgenticAgent`, `AgenticTool`).
+
+---
+
 # Changelog
 
 ## [0.1.1] — 2026-07-02
