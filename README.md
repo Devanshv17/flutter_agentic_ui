@@ -5,6 +5,8 @@
 
 **A drop-in chat screen for your AI agent.** Message list with streaming bubbles, a ReAct tool-call visualizer, typing indicator, and input bar — wired directly to a [flutter_agentic](https://pub.dev/packages/flutter_agentic) `GenesisAgent` through one observable controller.
 
+👉 **[View on pub.dev](https://pub.dev/packages/flutter_agentic_ui)** · [API docs](https://pub.dev/documentation/flutter_agentic_ui/latest/) · [GitHub](https://github.com/Devanshv17/flutter_agentic_ui)
+
 Part of the **flutter_agentic** family: [flutter_agentic](https://pub.dev/packages/flutter_agentic) (core SDK) · [flutter_agentic_graph](https://pub.dev/packages/flutter_agentic_graph) · [flutter_agentic_tools](https://pub.dev/packages/flutter_agentic_tools) · [flutter_agentic_memory](https://pub.dev/packages/flutter_agentic_memory)
 
 ---
@@ -13,7 +15,7 @@ Part of the **flutter_agentic** family: [flutter_agentic](https://pub.dev/packag
 
 ```yaml
 dependencies:
-  flutter_agentic_ui: ^0.1.0
+  flutter_agentic_ui: ^0.1.1
 ```
 
 ## A full agent chat screen in ~15 lines
